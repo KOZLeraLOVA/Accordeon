@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="88340f88-8db3-4692-97b0-544fca2756d8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/imgs/avatar-placeholder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/imgs/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/chats.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/comment.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/filter.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/home.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/logo-big.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/logo-small.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/search.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/send-message.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/settings.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/public/assets/svg/upload.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/auth/access.guard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/auth/auth.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/auth/auth.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/data/interfaces/chats.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/data/interfaces/pageble.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/data/interfaces/post.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/app/data/interfaces/profile.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/fonts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tik-talk/src/margins.scss" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;KOZLeraLOVA&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KOZLeraLOVA/Accordeon.git&quot;,
+    &quot;accountId&quot;: &quot;4c583b30-29d6-4f0b-bddd-2304cbe427f3&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2uRpcHfBIQxL38ijOc5JdZCL0uK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.profile-card.component.html.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.app.component.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.dz.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.tik talk.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/пустая папка/.idea/test/Accordeon/tik-talk/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.intentionPowerPack&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\пустая папка\\.idea\\test\\Accordeon\\tik-talk\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\public" />
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\public\assets\fontss" />
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\public\assets\fonts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\src\app\pages\chats\chat-workspace\chat-workspace-messages-wrapper" />
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\src\app\pages\chats\chat-workspace" />
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\public\assets\svg" />
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\public\assets\imgs" />
+      <recent name="D:\пустая папка\.idea\test\Accordeon\tik-talk\public\assets\fonts" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.25659.40" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="88340f88-8db3-4692-97b0-544fca2756d8" name="Changes" comment="" />
+      <created>1742221321246</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742221321246</updated>
+      <workItem from="1742221323948" duration="925000" />
+      <workItem from="1742299718597" duration="86664000" />
+      <workItem from="1742981231029" duration="8652000" />
+      <workItem from="1742998735621" duration="1389000" />
+      <workItem from="1743085322933" duration="7954000" />
+      <workItem from="1743241048229" duration="14962000" />
+      <workItem from="1743365695532" duration="1867000" />
+      <workItem from="1743437992377" duration="4260000" />
+      <workItem from="1743508775290" duration="1995000" />
+      <workItem from="1743511027384" duration="42668000" />
+      <workItem from="1743795311700" duration="2255000" />
+      <workItem from="1743846519597" duration="5005000" />
+      <workItem from="1743935579488" duration="15008000" />
+      <workItem from="1744026290653" duration="57298000" />
+      <workItem from="1744362283005" duration="21731000" />
+      <workItem from="1744470498729" duration="6478000" />
+      <workItem from="1744570349548" duration="16677000" />
+      <workItem from="1744722346340" duration="12803000" />
+      <workItem from="1744799318839" duration="55744000" />
+      <workItem from="1745349454855" duration="4496000" />
+      <workItem from="1745397128118" duration="22924000" />
+      <workItem from="1745589192296" duration="43115000" />
+      <workItem from="1745870125268" duration="17672000" />
+      <workItem from="1746083334448" duration="7069000" />
+      <workItem from="1746171604470" duration="4369000" />
+      <workItem from="1746208701656" duration="6031000" />
+      <workItem from="1746451779584" duration="9718000" />
+      <workItem from="1746993812513" duration="50887000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/dz.js</url>
+          <line>51</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/dz.js</url>
+          <line>106</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
