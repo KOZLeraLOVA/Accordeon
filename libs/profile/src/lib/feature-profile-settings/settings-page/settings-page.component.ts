@@ -1,18 +1,23 @@
 import { Component, effect, inject, ViewChild } from '@angular/core'
-import {
-	FormBuilder,
-	FormGroup,
-	Validators,
-	ReactiveFormsModule
-} from '@angular/forms'
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms'
 import { ProfileService } from '../../data/services/profile.service'
 import { firstValueFrom } from 'rxjs'
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component'
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component'
+import {
+	AddressInputComponent,
+	StackInputComponent
+} from '../../../../../common-ui/src/lib/components'
 
 @Component({
 	selector: 'app-settings-page',
-	imports: [ProfileHeaderComponent, ReactiveFormsModule, AvatarUploadComponent],
+	imports: [
+		ProfileHeaderComponent,
+		ReactiveFormsModule,
+		AvatarUploadComponent,
+		StackInputComponent,
+		AddressInputComponent
+	],
 	templateUrl: './settings-page.component.html',
 	styleUrl: './settings-page.component.scss'
 })
@@ -27,21 +32,19 @@ export class SettingsPageComponent {
 		lastName: ['', Validators.required],
 		username: [{ value: '', disabled: true }, Validators.required],
 		description: [''],
-		stack: ['']
+		stack: [''],
+		city: [null]
 	})
 
 	constructor() {
 		effect(() => {
 			//@ts-ignore
 			this.form.patchValue({
-				...this.profileService.me(),
-				//@ts-ignore
-				stack: this.mergeStack(this.profileService.me()?.stack)
+				...this.profileService.me()
 			})
 		})
 	}
 
-	ngAfterViewInit() {}
 	onSave() {
 		this.form.markAllAsTouched()
 		this.form.updateValueAndValidity()
@@ -57,23 +60,8 @@ export class SettingsPageComponent {
 		firstValueFrom(
 			//@ts-ignore
 			this.profileService.patchProfile({
-				...this.form.value,
-				stack: this.splitStack(this.form.value.stack)
+				...this.form.value
 			})
 		)
-	}
-
-	splitStack(stack: string | null | string[] | undefined): string[] {
-		if (!stack) return []
-		if (Array.isArray(stack)) return stack
-
-		return stack.split(',')
-	}
-
-	mergeStack(stack: string | null | string[] | undefined) {
-		if (!stack) return ''
-		if (Array.isArray(stack)) return stack.join(',')
-
-		return stack
 	}
 }

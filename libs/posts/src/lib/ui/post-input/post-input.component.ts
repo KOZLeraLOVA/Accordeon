@@ -12,10 +12,16 @@ import {
 	SvgIconComponent
 } from '../../../../../common-ui/src/lib/components'
 import { NgIf } from '@angular/common'
-import { PostService } from '../../data'
+
 import { firstValueFrom } from 'rxjs'
 import { FormsModule } from '@angular/forms'
 import { GlobalStoreService } from '../../../../../shared/src/lib/data/service/global-store.service'
+import { Store } from '@ngrx/store'
+import {
+	CommentCreateDto,
+	PostCreateDto
+} from '../../../../../data-access/src/lib/posts/interfaces/post.interface'
+import { postActions } from '@tt/posts'
 
 @Component({
 	selector: 'app-post-input',
@@ -26,17 +32,21 @@ import { GlobalStoreService } from '../../../../../shared/src/lib/data/service/g
 })
 export class PostInputComponent {
 	r2 = inject(Renderer2)
-	postService = inject(PostService)
+
+	store = inject(Store)
 
 	isCommentInput = input(false)
 	postId = input<number>(0)
 	profile = inject(GlobalStoreService).me
 
-	@Output() created = new EventEmitter()
+	@Output() createPost = new EventEmitter<PostCreateDto>()
+	@Output() createComment = new EventEmitter<CommentCreateDto>()
 
 	@HostBinding('class.comment')
 	get isComment() {
-		return this.isCommentInput()
+		return {
+			comment: this.isCommentInput()
+		}
 	}
 
 	postText = ''
@@ -52,27 +62,88 @@ export class PostInputComponent {
 		if (!this.postText) return
 
 		if (this.isCommentInput()) {
-			firstValueFrom(
-				this.postService.createComment({
-					text: this.postText,
-					authorId: this.profile()!.id,
-					postId: this.postId()
-				})
-			).then(() => {
-				this.postText = ''
-				this.created.emit()
+			this.createComment.emit({
+				text: this.postText,
+				authorId: this.profile()!.id,
+				postId: this.postId()
 			})
+			this.postText = ''
 			return
 		}
 
-		firstValueFrom(
-			this.postService.createPost({
-				title: 'Клевый пост',
-				content: this.postText,
-				authorId: this.profile()!.id
-			})
-		).then(() => {
-			this.postText = ''
+		this.createPost.emit({
+			title: '',
+			content: this.postText,
+			authorId: this.profile()!.id
 		})
+		this.postText = ''
+		return
 	}
 }
+
+// 	onClick(postText: string) {
+// 		if (!postText) return
+//
+// 		this.store.dispatch(
+// 			postActions.createPost({
+// 				payload: {
+// 					title: 'Клевый пост',
+// 					content: postText,
+// 					authorId: this.profile()!.id
+// 				}
+// 			})
+// 		)
+// 	}
+// }
+
+// onClick() {
+// 	if (!this.postText) return
+//
+// 	if (this.isCommentInput()) {
+// 		this.createComment.emit({
+// 			text: this.postText,
+// 			authorId: this.profile()!.id,
+// 			postId: this.postId()
+// 		})
+// 		this.postText = ''
+// 		return
+// 	}
+
+// 		this.createPost.emit({
+// 			title: 'Lalala',
+// 			content: this.postText,
+// 			authorId: this.profile()!.id
+// 		})
+// 		this.postText = ''
+// 		return
+// 	}
+// }
+
+//onCreatePost() {
+//if (!this.postText) return
+
+//if (this.isCommentInput()) {
+//firstValueFrom(
+//	this.postService.createComment({
+//	text: this.postText,
+//	authorId: this.profile()!.id,
+//postId: this.postId()
+//	})
+//	).then(() => {
+//	this.postText = ''
+//	this.created.emit()
+//	})
+//	return
+//}
+
+//firstValueFrom(
+//	this.postService.createPost({
+//		title: 'Клевый пост',
+//		content: this.postText,
+//		authorId: this.profile()!.id
+//	})
+//	).then(() => {
+//	this.postText = ''
+//})
+//}
+//}

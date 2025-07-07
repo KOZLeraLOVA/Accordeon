@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core'
-import { MessageInputComponent } from '../../ui/message-input/message-input.component'
 import { ChatWorkspaceHeaderComponent } from '../chat-workspace-header/chat-workspace-header.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ChatsService } from '../../data/services/chats.service'
@@ -12,7 +11,6 @@ import { ChatWorkspaceMessagesWrapperComponent } from '../chat-workspace-message
 	imports: [
 		ChatWorkspaceHeaderComponent,
 		ChatWorkspaceMessagesWrapperComponent,
-		MessageInputComponent,
 		AsyncPipe
 	],
 	templateUrl: './chat-workspace.component.html',

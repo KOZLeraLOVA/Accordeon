@@ -11,10 +11,11 @@ import { ChatWorkspaceMessageComponent } from '../chat-workspace-message/chat-wo
 import { firstValueFrom, fromEvent, Subscription, switchMap, timer } from 'rxjs'
 import { Chat } from '../../data/interfaces/chats.interface'
 import { ChatsService } from '../../data/services/chats.service'
+import { MessageInputComponent } from '../../ui/message-input/message-input.component'
 
 @Component({
 	selector: 'app-chat-workspace-messages-wrapper',
-	imports: [ChatWorkspaceMessageComponent],
+	imports: [ChatWorkspaceMessageComponent, MessageInputComponent],
 	templateUrl: './chat-workspace-messages-wrapper.component.html',
 	styleUrl: './chat-workspace-messages-wrapper.component.scss'
 })

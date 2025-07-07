@@ -1,5 +1,4 @@
 export interface Profile {
-	[x: string]: any
 	id: number
 	username: string
 	description: string

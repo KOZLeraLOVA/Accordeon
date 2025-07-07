@@ -18,6 +18,10 @@ export class PostService {
 
 	posts = signal<Post[]>([])
 
+	fetchPost() {
+		return this.#http.get<Post[]>(`${this.baseApiUrl}/post`)
+	}
+
 	createPost(payload: PostCreateDto) {
 		return this.#http.post<Post>(`${this.baseApiUrl}post/`, payload).pipe(
 			switchMap(() => {

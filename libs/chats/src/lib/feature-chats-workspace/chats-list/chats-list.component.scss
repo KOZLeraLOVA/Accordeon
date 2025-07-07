@@ -1,11 +1,38 @@
 :host {
-  border-right: var(--light-border);
-  display: block;
+	border-right: var(--light-border);
 }
 
-
-
 .chats-filters-input__wrapper {
-  padding: 16px 20px;
-border-bottom: var(--light-border);
+	width: 380px;
+	height: 70px;
+	padding: 16px 20px;
+	border-bottom: var(--light-border);
+}
+
+.tt-form-input {
+	display: grid;
+	position: absolute;
+	width: 340px;
+}
+
+.tt-form-label {
+	position: relative;
+	width: 340px;
+	height: 45px;
+}
+
+.icon-search {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	top: 50%;
+	right: -2px;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+}
+
+.btn {
+	background: var(--dark-color);
+	border-bottom: 1px solid var(--light-color);
 }

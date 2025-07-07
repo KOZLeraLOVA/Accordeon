@@ -7,6 +7,14 @@ import { SettingsPageComponent } from '../../../../libs/profile/src/lib/feature-
 import { chatsRoutes } from '../../../../libs/chats/src/lib/feature-chats-workspace'
 import { LayoutComponent } from '../../../../libs/layout/src/lib/layout/layout.component'
 import { SearchPageComponent } from '../../../../libs/profile/src/lib/feature-profile-list/search-page/search-page.component'
+import { provideState } from '@ngrx/store'
+import { provideEffects } from '@ngrx/effects'
+import {
+	ProfileEffects,
+	profileFeature
+} from '../../../../libs/profile/src/lib/data'
+import { postFeature } from '../../../../libs/posts/src/lib/data/store/posts.reducer'
+import { PostEffects } from '../../../../libs/posts/src'
 
 export const routes: Routes = [
 	{
@@ -14,7 +22,19 @@ export const routes: Routes = [
 		component: LayoutComponent,
 		children: [
 			{ path: '', redirectTo: 'profile/me', pathMatch: 'full' },
-			{ path: 'search', component: SearchPageComponent },
+			{
+				path: 'profile/:id',
+				component: ProfilePageComponent,
+				providers: [provideState(postFeature), provideEffects(PostEffects)]
+			},
+			{
+				path: 'search',
+				component: SearchPageComponent,
+				providers: [
+					provideState(profileFeature),
+					provideEffects(ProfileEffects)
+				]
+			},
 			{ path: 'profile/:id', component: ProfilePageComponent },
 			{ path: 'settings', component: SettingsPageComponent },
 			{ path: 'chats', loadChildren: () => chatsRoutes }

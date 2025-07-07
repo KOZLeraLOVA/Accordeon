@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ChatsService } from '../../data/services/chats.service'
 import { AsyncPipe } from '@angular/common'
-import { ChatsPageComponent } from '../chats-page/chats.component'
 import { ChatsBtnComponent } from '../chats-btn/chats-btn.component'
+import { map, startWith, switchMap } from 'rxjs'
+import { RouterLinkActive, RouterLink } from '@angular/router'
+import { SvgIconComponent } from '../../../../../common-ui/src/lib/components/svg-icon/svg-icon.component'
 
 @Component({
 	selector: 'app-chats-list',
@@ -12,7 +14,9 @@ import { ChatsBtnComponent } from '../chats-btn/chats-btn.component'
 		FormsModule,
 		ReactiveFormsModule,
 		AsyncPipe,
-		ChatsPageComponent
+		RouterLinkActive,
+		RouterLink,
+		SvgIconComponent
 	],
 	templateUrl: './chats-list.component.html',
 	styleUrl: './chats-list.component.scss'
@@ -20,5 +24,20 @@ import { ChatsBtnComponent } from '../chats-btn/chats-btn.component'
 export class ChatsListComponent {
 	chatsService = inject(ChatsService)
 
-	chats$ = this.chatsService.getMyChats()
+	filterChatsControl = new FormControl('')
+
+	chats$ = this.chatsService.getMyChats().pipe(
+		switchMap((chats) => {
+			return this.filterChatsControl.valueChanges.pipe(
+				startWith(''),
+				map((inputValue) => {
+					return chats.filter((chat) => {
+						return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
+							.toLowerCase()
+							.includes(inputValue?.toLowerCase() ?? '')
+					})
+				})
+			)
+		})
+	)
 }

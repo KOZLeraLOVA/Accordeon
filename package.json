@@ -18,6 +18,8 @@
 		"@angular/platform-browser": "^19.0.0",
 		"@angular/platform-browser-dynamic": "^19.0.0",
 		"@angular/router": "^19.0.0",
+		"@ngrx/effects": "^19.2.1",
+		"@ngrx/store": "^19.2.1",
 		"@nx/angular": "^21.2.0",
 		"luxon": "^3.6.1",
 		"ngx-cookie-service": "^19.0.0",

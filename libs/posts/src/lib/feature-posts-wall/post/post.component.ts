@@ -1,11 +1,28 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core'
-import { Post, PostComment, PostService } from '../../data'
+import {
+	Component,
+	computed,
+	inject,
+	input,
+	OnInit,
+	Signal
+} from '@angular/core'
+import {
+	CommentCreateDto,
+	Post,
+	PostComment
+} from '../../../../../data-access/src/lib/posts/interfaces/post.interface'
 import { TimeAgoPipe } from '../../../../../common-ui/src/lib/pipes/time-ago.pipe'
 import { SvgIconComponent } from '../../../../../common-ui/src/lib/components/svg-icon/svg-icon.component'
 import { AvatarCircleComponent } from '../../../../../common-ui/src/lib/components/avatar-circle/avatar-circle.component'
 import { DatePipe } from '@angular/common'
 import { CommentComponent, PostInputComponent } from '../../ui'
-import { firstValueFrom } from 'rxjs'
+import { Store } from '@ngrx/store'
+import {
+	selectAllPosts,
+	selectCommentsByPostId
+} from '../../data/store/posts.selectors'
+import { postActions } from '../../data/store/posts.actions'
+import { GlobalStoreService } from 'libs/shared/src/lib/data/service/global-store.service'
 
 @Component({
 	selector: 'app-post',
@@ -22,22 +39,51 @@ import { firstValueFrom } from 'rxjs'
 })
 export class PostComponent implements OnInit {
 	post = input<Post>()
+	profile = inject(GlobalStoreService).me
+	comments!: Signal<PostComment[]>
 
-	comments = signal<PostComment[]>([])
+	store = inject(Store)
 
-	postService = inject(PostService)
+	comments2 = computed(() => {
+		if (this.comments()?.length > 0) {
+			return this.comments()
+		}
+		return this.post()?.comments
+	})
+
+	//feed: Signal<Post[]> = this.store.selectSignal(selectAllPosts)
 
 	async ngOnInit() {
-		this.comments.set(this.post()!.comments)
+		// 	//подписываемся на посты и коментарии из стора
+		this.store.dispatch(postActions.fetchPosts({}))
+
+		this.comments = this.store.selectSignal(
+			selectCommentsByPostId(this.post()!.id)
+		)
+
+		this.store.dispatch(postActions.fetchComments({ postId: this.post()!.id }))
+		//this.comments.set(this.post()!.comments)
 	}
 
-	async onCreated() {
-		const comments = await firstValueFrom(
-			this.postService.getCommentsByPostId(this.post()!.id)
+	onCreateComment(commentText: any) {
+		if (!commentText) return
+
+		this.store.dispatch(
+			postActions.commentsLoaded({
+				postId: this.post()!.id,
+				comments: this.comments()
+			})
 		)
-		this.comments.set(comments)
 	}
 }
+// 	async onCreateComment(comment: CommentCreateDto) {
+// 		this.store.dispatch(
+// 			postActions.createComment({
+// 				comment: comment
+// 			})
+// 		)
+// 	}
+// }
 
 const now = new Date()
 const formattedDate = now.toLocaleString('en-US', { dateStyle: 'short' })

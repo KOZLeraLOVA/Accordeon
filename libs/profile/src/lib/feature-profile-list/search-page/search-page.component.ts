@@ -5,10 +5,11 @@ import {
 	inject,
 	Renderer2
 } from '@angular/core'
-import { ProfileService } from '../../data/services/profile.service'
 import { fromEvent } from 'rxjs'
 import { ProfileCardComponent } from '../../ui/profile-card/profile-card.component'
 import { ProfileFiltersComponent } from '../profile-filters/profile-filters.component'
+import { Store } from '@ngrx/store'
+import { selectFilteredProfiles } from '../../data'
 
 @Component({
 	selector: 'app-search-page',
@@ -17,8 +18,9 @@ import { ProfileFiltersComponent } from '../profile-filters/profile-filters.comp
 	styleUrl: './search-page.component.scss'
 })
 export class SearchPageComponent {
-	profileService = inject(ProfileService)
-	profiles = this.profileService.filteredProfiles
+	store = inject(Store)
+
+	profiles = this.store.selectSignal(selectFilteredProfiles)
 	hostElement = inject(ElementRef)
 	r2 = inject(Renderer2)
 
