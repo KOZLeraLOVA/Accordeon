@@ -17,6 +17,7 @@ export const postActions = createActionGroup({
 		'comments loaded': props<{ postId: number; comments: PostComment[] }>(), // Загрузка комментариев для поста
 		'create comment': props<{ payload: CommentCreateDto }>() // Действие для добавления комментария
 
+		//'fetch posts': emptyProps(),
 		//'loading post events': emptyProps,
 		//props<{ post: PostCreateDto }>()
 

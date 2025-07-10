@@ -20,13 +20,14 @@
 		</div>
 
 		<div class="post__comments-wrapper">
-			@for (comment of comments2(); track comment.id) {
+            @for (comment of comments2(); track comment.id) {
 				<app-comment [comment]="comment"></app-comment>
 			}
 		</div>
 
 		<app-post-input
-			(created)="onCreateComment($event)"
+
+			(createComment)="onCreated($event)"
 			[postId]="post.id"
 			[isCommentInput]="true"></app-post-input>
 	</main>

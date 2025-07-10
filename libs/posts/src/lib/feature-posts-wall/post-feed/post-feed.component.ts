@@ -1,9 +1,11 @@
 import {
+	AfterViewInit,
 	Component,
 	ElementRef,
 	HostListener,
 	inject,
 	Input,
+	OnInit,
 	Renderer2
 } from '@angular/core'
 import { PostInputComponent } from '../../ui/post-input/post-input.component'
@@ -12,18 +14,20 @@ import { firstValueFrom, fromEvent } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectAllPosts } from '../../data/store/posts.selectors'
 import { postActions } from '../../data/store/posts.actions'
-
-import { GlobalStoreService } from 'libs/shared/src/lib/data/service/global-store.service'
 import { PostCreateDto } from '../../../../../data-access/src/lib/posts/interfaces/post.interface'
-import { PostService } from '../../../../../data-access/src/lib/posts/services/post.service'
+import { selectedMeProfile } from '../../../../../profile/src/lib/data/store/selectors'
+import { PostService } from 'libs/data-access/src/lib/posts/services/post.service'
+import { GlobalStoreService } from '@tt/shared'
 
 @Component({
 	selector: 'app-post-feed',
+	standalone: true,
 	imports: [PostInputComponent, PostComponent],
 	templateUrl: './post-feed.component.html',
 	styleUrl: './post-feed.component.scss'
 })
 export class PostFeedComponent {
+	//profile!: Profile
 	hostElement = inject(ElementRef)
 	r2 = inject(Renderer2)
 	postService = inject(PostService)
@@ -31,9 +35,11 @@ export class PostFeedComponent {
 	store = inject(Store)
 	profile = inject(GlobalStoreService).me
 	feed = this.store.selectSignal(selectAllPosts)
+	me = this.store.selectSignal(selectedMeProfile)
 
 	@Input() isCommentInput = false
 	@Input() postId: number = 0
+
 	@HostListener('window:resize')
 	onWindowResize() {
 		this.resizeFeed()
@@ -47,21 +53,14 @@ export class PostFeedComponent {
 	// 	this.loadPosts()
 	// }
 
-	onCreatePost(postText: string) {
+	onCreatePost(postText: any) {
 		this.store.dispatch(
 			postActions.createPost({
 				payload: {
 					title: 'Клевый пост',
-					content: postText,
+					content: postText.content,
 					authorId: this.profile()!.id
 				}
-			})
-		)
-		firstValueFrom(
-			this.postService.createPost({
-				title: 'Клевый пост',
-				content: postText,
-				authorId: this.profile()!.id
 			})
 		)
 	}

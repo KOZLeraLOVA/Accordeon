@@ -12,16 +12,14 @@ import {
 	SvgIconComponent
 } from '../../../../../common-ui/src/lib/components'
 import { NgIf } from '@angular/common'
-
-import { firstValueFrom } from 'rxjs'
 import { FormsModule } from '@angular/forms'
-import { GlobalStoreService } from '../../../../../shared/src/lib/data/service/global-store.service'
 import { Store } from '@ngrx/store'
 import {
 	CommentCreateDto,
 	PostCreateDto
 } from '../../../../../data-access/src/lib/posts/interfaces/post.interface'
-import { postActions } from '@tt/posts'
+import { Profile } from '../../../../../interface/src/lib/profile/profile.interface'
+import { GlobalStoreService } from '@tt/shared'
 
 @Component({
 	selector: 'app-post-input',
@@ -38,6 +36,7 @@ export class PostInputComponent {
 	isCommentInput = input(false)
 	postId = input<number>(0)
 	profile = inject(GlobalStoreService).me
+	//profile = input<Profile>()
 
 	@Output() createPost = new EventEmitter<PostCreateDto>()
 	@Output() createComment = new EventEmitter<CommentCreateDto>()
@@ -60,7 +59,7 @@ export class PostInputComponent {
 
 	onCreatePost() {
 		if (!this.postText) return
-
+		console.log(this.postText)
 		if (this.isCommentInput()) {
 			this.createComment.emit({
 				text: this.postText,
@@ -72,7 +71,7 @@ export class PostInputComponent {
 		}
 
 		this.createPost.emit({
-			title: '',
+			title: 'Клевый пост',
 			content: this.postText,
 			authorId: this.profile()!.id
 		})

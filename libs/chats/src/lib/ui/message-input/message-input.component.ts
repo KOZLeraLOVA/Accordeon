@@ -10,6 +10,7 @@ import { NgIf } from '@angular/common'
 import { SvgIconComponent } from '../../../../../common-ui/src/lib/components'
 import { AvatarCircleComponent } from '../../../../../common-ui/src/lib/components'
 import { FormsModule } from '@angular/forms'
+import { Store } from '@ngrx/store'
 
 @Component({
 	selector: 'app-message-input',
@@ -20,10 +21,11 @@ import { FormsModule } from '@angular/forms'
 export class MessageInputComponent {
 	r2 = inject(Renderer2)
 	me = inject(ProfileService).me
+	store = inject(Store)
 
-	@Output() created = new EventEmitter<string>() ///{ВСЕ КРОМЕ STRING ДОБАВЛЕНО}
+	@Output() createdMess = new EventEmitter<string>()
 
-	postText = ''
+	textMessage = ''
 
 	onTextAreaInput(event: Event) {
 		const textarea = event.target as HTMLTextAreaElement
@@ -32,10 +34,11 @@ export class MessageInputComponent {
 		this.r2.setStyle(textarea, 'height', textarea.scrollHeight + 'px')
 	}
 
-	onCreatePost() {
-		if (!this.postText) return
+	onClick() {
+		if (!this.textMessage) return
 
-		this.created.emit(this.postText)
-		this.postText = ''
+		this.createdMess.emit(this.textMessage)
+		this.textMessage = ''
+		return
 	}
 }

@@ -22,7 +22,8 @@ import {
 	selectCommentsByPostId
 } from '../../data/store/posts.selectors'
 import { postActions } from '../../data/store/posts.actions'
-import { GlobalStoreService } from 'libs/shared/src/lib/data/service/global-store.service'
+import { Profile } from '../../../../../interface/src/lib/profile/profile.interface'
+import { GlobalStoreService } from '@tt/shared'
 
 @Component({
 	selector: 'app-post',
@@ -39,10 +40,20 @@ import { GlobalStoreService } from 'libs/shared/src/lib/data/service/global-stor
 })
 export class PostComponent implements OnInit {
 	post = input<Post>()
+	//comments = input<PostComment[]>()
+	me = input<Profile>()
 	profile = inject(GlobalStoreService).me
+
 	comments!: Signal<PostComment[]>
 
 	store = inject(Store)
+
+	//feed: Signal<Post[]> = this.store.selectSignal(selectAllPosts)
+
+	// 	onCreated(comment: CommentCreateDto) {
+	// 		this.store.dispatch(postActions.createComment({ comment: comment }))
+	// 	}
+	// }
 
 	comments2 = computed(() => {
 		if (this.comments()?.length > 0) {
@@ -50,8 +61,6 @@ export class PostComponent implements OnInit {
 		}
 		return this.post()?.comments
 	})
-
-	//feed: Signal<Post[]> = this.store.selectSignal(selectAllPosts)
 
 	async ngOnInit() {
 		// 	//подписываемся на посты и коментарии из стора
@@ -65,25 +74,21 @@ export class PostComponent implements OnInit {
 		//this.comments.set(this.post()!.comments)
 	}
 
-	onCreateComment(commentText: any) {
+	onCreated(commentText: any) {
+		console.log(commentText)
 		if (!commentText) return
 
 		this.store.dispatch(
-			postActions.commentsLoaded({
-				postId: this.post()!.id,
-				comments: this.comments()
+			postActions.createComment({
+				payload: {
+					text: commentText.text,
+					authorId: this.profile()!.id,
+					postId: this.post()!.id
+				}
 			})
 		)
 	}
 }
-// 	async onCreateComment(comment: CommentCreateDto) {
-// 		this.store.dispatch(
-// 			postActions.createComment({
-// 				comment: comment
-// 			})
-// 		)
-// 	}
-// }
 
 const now = new Date()
 const formattedDate = now.toLocaleString('en-US', { dateStyle: 'short' })

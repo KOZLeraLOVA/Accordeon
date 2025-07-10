@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { Component, HostBinding, input } from '@angular/core'
 import { AvatarCircleComponent } from 'libs/common-ui/src/lib/components/avatar-circle/avatar-circle.component'
 import { TimeAgoPipe } from 'libs/common-ui/src/lib/pipes/time-ago.pipe'
-import { Message } from '../../data/interfaces/chats.interface'
+import { Message } from '../../../../../data-access/src/lib/chats/interfaces/chats.interface'
 
 @Component({
 	selector: 'app-chat-workspace-message',

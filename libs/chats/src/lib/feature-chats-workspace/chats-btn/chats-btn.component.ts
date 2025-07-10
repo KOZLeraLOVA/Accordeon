@@ -1,6 +1,9 @@
 import { Component, input } from '@angular/core'
 
-import { LastMessageRes, Message } from '../../data/interfaces/chats.interface'
+import {
+	LastMessageRes,
+	Message
+} from '../../../../../data-access/src/lib/chats/interfaces/chats.interface'
 import { AvatarCircleComponent } from '../../../../../common-ui/src/lib/components/avatar-circle/avatar-circle.component'
 import { DateTime } from 'luxon'
 

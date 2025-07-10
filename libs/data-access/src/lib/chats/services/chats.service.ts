@@ -1,16 +1,25 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable, signal } from '@angular/core'
 import { Chat, LastMessageRes, Message } from '../interfaces/chats.interface'
-import { map } from 'rxjs'
+import { map, Observable } from 'rxjs'
 import { DateTime } from 'luxon'
 import { ProfileService } from '../../../../../profile/src/lib/data/services/profile.service'
+import { ChatWSNativeService } from './chat-ws-native.service'
+import { ChatWSService } from '../interfaces/chat-ws-service.interface'
+import { AuthService } from '@tt/auth'
+import { ChatWSMessage } from '../interfaces/chat-ws-message.interface'
+import { isUnreadMessage, isNewMessage } from '../interfaces/type-guards'
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ChatsService {
 	http = inject(HttpClient)
+	#authService = inject(AuthService)
 	me = inject(ProfileService).me
+	countUnreadMessages = signal<number>(0)
+
+	wsAdapter: ChatWSService = new ChatWSNativeService()
 
 	activeChatMessages = signal<Message[]>([])
 	groupedChatMessages = signal<{ label: string; messages: Message[] }[]>([])
@@ -19,6 +28,37 @@ export class ChatsService {
 	chatsUrl = `${this.baseApiUrl}chat/`
 	messageUrl = `${this.baseApiUrl}message/`
 
+	connectWS() {
+		return this.wsAdapter.connect({
+			url: `${this.baseApiUrl}chat/ws`,
+			token: this.#authService.token ?? '',
+			handleMessage: this.handleWSMessage
+		}) as Observable<ChatWSMessage>
+	}
+
+	handleWSMessage = (message: ChatWSMessage) => {
+		if (!('action' in message)) return
+
+		if (isUnreadMessage(message)) {
+			//this.countUnreadMessage.set(message.data.count)
+			//TODO message.data.
+		}
+
+		if (isNewMessage(message)) {
+			this.activeChatMessages.set([
+				...this.activeChatMessages(),
+				{
+					id: message.data.id,
+					userFromId: message.data.author,
+					personalChatId: message.data.chat_id,
+					text: message.data.message,
+					createdAt: message.data.created_at,
+					isRead: false,
+					isMine: false
+				}
+			])
+		}
+	}
 	createChat(userId: number) {
 		return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {})
 	}
@@ -100,13 +140,12 @@ export class ChatsService {
 				}
 			)
 			.pipe(
-				///ДОБАВЛЕНО
 				map((response: any) => {
 					return {
 						text: response.text,
 						timestamp: new Date(response.timestamp)
 					}
-				}) ///ДОБАВЛЕНО
+				})
 			)
 	}
 }

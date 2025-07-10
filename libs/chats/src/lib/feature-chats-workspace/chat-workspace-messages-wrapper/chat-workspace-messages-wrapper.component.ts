@@ -1,16 +1,22 @@
 import {
 	Component,
 	ElementRef,
+	EventEmitter,
 	HostListener,
 	inject,
+	Input,
 	input,
+	Output,
 	Renderer2,
 	ViewChild
 } from '@angular/core'
 import { ChatWorkspaceMessageComponent } from '../chat-workspace-message/chat-workspace-message.component'
 import { firstValueFrom, fromEvent, Subscription, switchMap, timer } from 'rxjs'
-import { Chat } from '../../data/interfaces/chats.interface'
-import { ChatsService } from '../../data/services/chats.service'
+import {
+	Chat,
+	Message
+} from '../../../../../data-access/src/lib/chats/interfaces/chats.interface'
+import { ChatsService } from '../../../../../data-access/src/lib/chats/services/chats.service'
 import { MessageInputComponent } from '../../ui/message-input/message-input.component'
 
 @Component({
@@ -24,6 +30,8 @@ export class ChatWorkspaceMessagesWrapperComponent {
 	hostElement = inject(ElementRef)
 	r2 = inject(Renderer2)
 
+	@Output() sendMessage = new EventEmitter()
+	@Input() messages: Message[] = []
 	chat = input.required<Chat>()
 
 	@HostListener('window:resize')
@@ -71,10 +79,12 @@ export class ChatWorkspaceMessagesWrapperComponent {
 		this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`)
 	}
 
-	async onSendMessage(messageText: string) {
-		await firstValueFrom(
-			this.chatsService.sendMessage(this.chat().id, messageText)
-		)
+	async onSendMessage(textMessage: any) {
+		this.chatsService.wsAdapter.sendMessage(textMessage, this.chat().id)
+
+		// await firstValueFrom(
+		// 	this.chatsService.sendMessage(this.chat().id, messageText)
+		// )
 
 		await firstValueFrom(this.chatsService.getChatById(this.chat().id))
 		this.scrollToBottom()

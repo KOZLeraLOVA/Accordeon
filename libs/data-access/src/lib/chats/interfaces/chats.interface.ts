@@ -1,4 +1,4 @@
-import { Profile } from '../../../../../interface/src/lib/profile/profile.interface'
+import { Profile } from '@tt/interface/profile/profile.interface'
 
 export interface Chat {
 	id: number
@@ -15,7 +15,7 @@ export interface Message {
 	text: string
 	createdAt: string
 	isRead: boolean
-	updatedAt: string
+	updatedAt?: string
 	user?: Profile
 	isMine?: boolean
 }

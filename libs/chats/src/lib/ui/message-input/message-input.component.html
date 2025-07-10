@@ -4,11 +4,11 @@
 	[avatarUrl]="profile.avatarUrl"></app-avatar-circle>
 
 <textarea
-	[(ngModel)]="postText"
+	[(ngModel)]="textMessage"
 	class="hidden-textarea"
 	placeholder="Напишите что-нибудь..."
 	(input)="onTextAreaInput($event)"></textarea>
 
-<button class="btn-icon" (click)="onCreatePost()">
+<button class="btn-icon" (click)="onClick()">
 	<svg icon="send-message" class="svg16"></svg>
 </button>
