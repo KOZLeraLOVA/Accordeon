@@ -9,6 +9,10 @@
 				routerLinkActive="active">
 				<svg [icon]="menuItem.icon"></svg>
 				<span>{{ menuItem.label }}</span>
+
+<!--                @if (menuItem.label === 'Чаты' && unreadMessages()) {-->
+<!--                    <div class="unread-messages-chats">{{unreadMessages}}</div>-->
+<!--                }-->
 			</a>
 		</li>
 	</ul>
@@ -38,7 +42,7 @@
 </div>
 
 <footer class="sidebar__footer">
-	@if (me(); as me) {
+	@if (me; as me) {
 		@if (me.avatarUrl) {
 			<img [src]="me.avatarUrl | ImgUrl" alt="" />
 		} @else {

@@ -3,26 +3,43 @@ import { inject, Injectable, signal } from '@angular/core'
 import { Chat, LastMessageRes, Message } from '../interfaces/chats.interface'
 import { map, Observable } from 'rxjs'
 import { DateTime } from 'luxon'
-import { ProfileService } from '../../../../../profile/src/lib/data/services/profile.service'
-import { ChatWSNativeService } from './chat-ws-native.service'
 import { ChatWSService } from '../interfaces/chat-ws-service.interface'
-import { AuthService } from '@tt/auth'
+import { AuthService, selectedMeProfile } from '@tt/data-access'
 import { ChatWSMessage } from '../interfaces/chat-ws-message.interface'
-import { isUnreadMessage, isNewMessage } from '../interfaces/type-guards'
+import {
+	isUnreadMessage,
+	isNewMessage,
+	isErrorMessage
+} from '../interfaces/type-guards'
+import { ChatWSRxjsService } from '../interfaces/chat-ws-rxjs.service'
+import { TokenResponce } from '../../auth/interfaces/auth.interface'
+
+import { Store } from '@ngrx/store'
+import { Profile } from '../../profile/interfaces/profile.interface'
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ChatsService {
 	http = inject(HttpClient)
+	store = inject(Store)
 	#authService = inject(AuthService)
-	me = inject(ProfileService).me
-	countUnreadMessages = signal<number>(0)
+	//me = inject(ProfileService).me
 
-	wsAdapter: ChatWSService = new ChatWSNativeService()
+	//wsAdapter: ChatWSService = new ChatWSNativeService()
+	wsAdapter: ChatWSService = new ChatWSRxjsService()
 
-	activeChatMessages = signal<Message[]>([])
 	groupedChatMessages = signal<{ label: string; messages: Message[] }[]>([])
+	////groupedUnreadChatMessages = signal<{ label: string; messages: Message[] }[]>([])
+	//unreadMessageCount = signal(0)
+
+	me = this.store.selectSignal(selectedMeProfile)
+	activeChatMessages = signal<Message[]>([])
+
+	unreadMessageCount = signal<number>(0)
+	userConsumer = signal<Profile | null>(null)
+
+	countUnreadMessagesOneUser = signal(new Map<number, number>())
 
 	baseApiUrl = 'https://icherniakov.ru/yt-course/'
 	chatsUrl = `${this.baseApiUrl}chat/`
@@ -39,25 +56,61 @@ export class ChatsService {
 	handleWSMessage = (message: ChatWSMessage) => {
 		if (!('action' in message)) return
 
+		// if (isErrorMessage(message)) {
+		// 	this.wsAdapter.disconnect()
+		// 	return
+		// }
+
 		if (isUnreadMessage(message)) {
-			//this.countUnreadMessage.set(message.data.count)
-			//TODO message.data.
+			this.unreadMessageCount.set(message.data.count)
+		}
+
+		if (isErrorMessage(message)) {
+			this.#authService.refreshAuthToken().subscribe((token: TokenResponce) => {
+				console.log('Токен обновлен', token.access_token)
+			})
+			this.wsAdapter.disconnect()
+			this.connectWS().subscribe()
 		}
 
 		if (isNewMessage(message)) {
+			if (!(message.data.author === this.me()?.id)) {
+				const map = this.countUnreadMessagesOneUser()
+				let chatsId = message.data.chat_id
+
+				if (!map.has(chatsId)) {
+					map.set(chatsId, 1)
+				} else {
+					map.set(chatsId, map.get(chatsId)! + 1)
+				}
+				this.countUnreadMessagesOneUser.set(map)
+			}
+
 			this.activeChatMessages.set([
 				...this.activeChatMessages(),
 				{
 					id: message.data.id,
 					userFromId: message.data.author,
+					user:
+						message.data.author === this.me()?.id
+							? this.me()
+							: this.userConsumer(),
 					personalChatId: message.data.chat_id,
 					text: message.data.message,
 					createdAt: message.data.created_at,
 					isRead: false,
-					isMine: false
+					isMine: message.data.author === this.me()?.id
 				}
 			])
 		}
+	}
+
+	#refreshToken() {
+		this.#authService
+			.refreshAuthToken()
+			.subscribe((tokenResponce: TokenResponce) => {
+				console.log('Токен обновлен', tokenResponce.access_token)
+			})
 	}
 	createChat(userId: number) {
 		return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {})
@@ -83,8 +136,7 @@ export class ChatsService {
 
 				//todo
 
-				const groupedMessage = this.messagesForGroup(patchedMessages)
-				this.groupedChatMessages.set(groupedMessage)
+				this.activeChatMessages.set(patchedMessages)
 
 				return {
 					...chat,
@@ -97,6 +149,20 @@ export class ChatsService {
 			})
 		)
 	}
+
+	deleteUnreadMessage(chatId: number) {
+		const map = this.countUnreadMessagesOneUser()
+
+		if (map.has(chatId)) {
+			map.set(chatId, 0)
+		}
+
+		this.countUnreadMessagesOneUser.set(map)
+	}
+
+	//	const groupedMessages = this.unreadMessageCount(patchedMessages)
+	//	this.groupedUnreadChatMessages.set(groupedMessages)
+
 	messagesForGroup(messages: Message[]) {
 		const messagesArray = messages
 		const groupedMessages = new Map<string, Message[]>()

@@ -22,6 +22,8 @@ export class ChatWorkspaceComponent {
 	chatsService = inject(ChatsService)
 	me = inject(ChatsService)
 
+	messages = this.chatsService.activeChatMessages
+
 	activeChat$ = this.route.params.pipe(
 		switchMap(({ id }) => {
 			if (id === 'new') {

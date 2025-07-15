@@ -14,10 +14,8 @@ import { firstValueFrom, fromEvent } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectAllPosts } from '../../data/store/posts.selectors'
 import { postActions } from '../../data/store/posts.actions'
-import { PostCreateDto } from '../../../../../data-access/src/lib/posts/interfaces/post.interface'
-import { selectedMeProfile } from '../../../../../profile/src/lib/data/store/selectors'
 import { PostService } from 'libs/data-access/src/lib/posts/services/post.service'
-import { GlobalStoreService } from '@tt/shared'
+import { GlobalStoreService, selectedMeProfile } from '@tt/data-access'
 
 @Component({
 	selector: 'app-post-feed',

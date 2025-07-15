@@ -12,7 +12,6 @@ export class ChatWSNativeService implements ChatWSService {
 		this.#socket = new WebSocket(params.url, [params.token])
 
 		this.#socket.onmessage = (event: MessageEvent) => {
-			console.log('Received message', event)
 			params.handleMessage(JSON.parse(event.data))
 		}
 
@@ -24,7 +23,7 @@ export class ChatWSNativeService implements ChatWSService {
 		this.#socket?.send(
 			JSON.stringify({
 				text,
-				chat_Id: chatId
+				chat_id: chatId
 			})
 		)
 	}

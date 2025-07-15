@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core'
 import { AsyncPipe } from '@angular/common'
-import { ProfileService } from '../../data/services/profile.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { switchMap } from 'rxjs'
 import { toObservable } from '@angular/core/rxjs-interop'
@@ -8,6 +7,7 @@ import { RouterLink } from '@angular/router'
 import { ImgUrlPipe } from '../../../../../common-ui/src/lib/pipes/img-url.pipe'
 import { PostFeedComponent } from '../../../../../posts/src/lib/feature-posts-wall/post-feed/post-feed.component'
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component'
+import { ProfileService } from '@tt/data-access'
 
 @Component({
 	selector: 'app-profile-page',

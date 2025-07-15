@@ -22,8 +22,9 @@ import {
 	selectCommentsByPostId
 } from '../../data/store/posts.selectors'
 import { postActions } from '../../data/store/posts.actions'
-import { Profile } from '../../../../../interface/src/lib/profile/profile.interface'
-import { GlobalStoreService } from '@tt/shared'
+
+import { GlobalStoreService } from '@tt/data-access'
+import { Profile } from '../../../../../data-access/src/lib/profile/interfaces/profile.interface'
 
 @Component({
 	selector: 'app-post',

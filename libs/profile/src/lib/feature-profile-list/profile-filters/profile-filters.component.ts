@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { ProfileService } from '../../data/services/profile.service'
 import { debounceTime, startWith, Subscription } from 'rxjs'
 import { SvgIconComponent } from '../../../../../common-ui/src/lib/components/svg-icon/svg-icon.component'
 import { AsyncPipe } from '@angular/common'
 import { Store } from '@ngrx/store'
-import { profileActions } from '../../data'
+import { profileActions, ProfileService } from '@tt/data-access'
 
 @Component({
 	selector: 'app-profile-filters',

@@ -1,6 +1,5 @@
 import { Component, effect, inject, ViewChild } from '@angular/core'
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms'
-import { ProfileService } from '../../data/services/profile.service'
 import { firstValueFrom } from 'rxjs'
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component'
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component'
@@ -8,6 +7,7 @@ import {
 	AddressInputComponent,
 	StackInputComponent
 } from '../../../../../common-ui/src/lib/components'
+import { ProfileService } from '@tt/data-access'
 
 @Component({
 	selector: 'app-settings-page',

@@ -9,7 +9,7 @@ import { fromEvent } from 'rxjs'
 import { ProfileCardComponent } from '../../ui/profile-card/profile-card.component'
 import { ProfileFiltersComponent } from '../profile-filters/profile-filters.component'
 import { Store } from '@ngrx/store'
-import { selectFilteredProfiles } from '../../data'
+import { selectFilteredProfiles } from '@tt/data-access'
 
 @Component({
 	selector: 'app-search-page',

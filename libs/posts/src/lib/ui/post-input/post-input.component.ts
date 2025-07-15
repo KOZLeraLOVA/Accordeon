@@ -18,8 +18,8 @@ import {
 	CommentCreateDto,
 	PostCreateDto
 } from '../../../../../data-access/src/lib/posts/interfaces/post.interface'
-import { Profile } from '../../../../../interface/src/lib/profile/profile.interface'
-import { GlobalStoreService } from '@tt/shared'
+
+import { GlobalStoreService } from '../../../../../data-access/src/lib/shared/service/global-store.service'
 
 @Component({
 	selector: 'app-post-input',

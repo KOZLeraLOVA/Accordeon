@@ -86,7 +86,7 @@ export class ChatWorkspaceMessagesWrapperComponent {
 		// 	this.chatsService.sendMessage(this.chat().id, messageText)
 		// )
 
-		await firstValueFrom(this.chatsService.getChatById(this.chat().id))
+		//await firstValueFrom(this.chatsService.getChatById(this.chat().id))
 		this.scrollToBottom()
 	}
 }

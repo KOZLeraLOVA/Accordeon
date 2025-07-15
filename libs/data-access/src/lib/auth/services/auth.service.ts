@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, tap, throwError } from 'rxjs'
-import { TokenResponce } from './auth.interface'
+import { TokenResponce } from '@tt/data-access'
 import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router'
 
@@ -46,7 +46,7 @@ export class AuthService {
 				tap((val) => this.saveTokens(val)),
 				catchError((err) => {
 					this.logout()
-					return throwError(err)
+					return throwError(() => err)
 				})
 			)
 	}
@@ -55,7 +55,7 @@ export class AuthService {
 		this.cookieService.deleteAll()
 		this.token = null
 		this.refreshToken = null
-		this.router.navigate(['login'])
+		this.router.navigate(['/login'])
 	}
 
 	saveTokens(res: TokenResponce) {

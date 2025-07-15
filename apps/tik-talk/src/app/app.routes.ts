@@ -9,12 +9,12 @@ import { LayoutComponent } from '../../../../libs/layout/src/lib/layout/layout.c
 import { SearchPageComponent } from '../../../../libs/profile/src/lib/feature-profile-list/search-page/search-page.component'
 import { provideState } from '@ngrx/store'
 import { provideEffects } from '@ngrx/effects'
+import { postFeature } from '../../../../libs/posts/src/lib/data/store/posts.reducer'
+import { PostEffects } from '../../../../libs/posts/src'
 import {
 	ProfileEffects,
 	profileFeature
-} from '../../../../libs/profile/src/lib/data'
-import { postFeature } from '../../../../libs/posts/src/lib/data/store/posts.reducer'
-import { PostEffects } from '../../../../libs/posts/src'
+} from '../../../../libs/data-access/src'
 
 export const routes: Routes = [
 	{

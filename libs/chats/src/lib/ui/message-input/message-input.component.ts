@@ -5,12 +5,12 @@ import {
 	Output,
 	Renderer2
 } from '@angular/core'
-import { ProfileService } from '../../../../../profile/src/lib/data/services/profile.service'
 import { NgIf } from '@angular/common'
 import { SvgIconComponent } from '../../../../../common-ui/src/lib/components'
 import { AvatarCircleComponent } from '../../../../../common-ui/src/lib/components'
 import { FormsModule } from '@angular/forms'
 import { Store } from '@ngrx/store'
+import { ProfileService } from '@tt/data-access'
 
 @Component({
 	selector: 'app-message-input',

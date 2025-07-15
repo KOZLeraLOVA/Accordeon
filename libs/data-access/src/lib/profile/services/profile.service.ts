@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable, signal } from '@angular/core'
-import { Profile } from '../../../../../interface/src/lib/profile/profile.interface'
+
 import { map, tap } from 'rxjs'
-import { Pageble } from '../../../../../shared/src/lib/data/interfaces/pageble.interface'
-import { GlobalStoreService } from '../../../../../shared/src/lib/data/service/global-store.service'
+import { GlobalStoreService } from '../../shared/service/global-store.service'
+import { Pageble } from '../../shared/interfaces/pageble.interface'
+import { Profile } from '../interfaces/profile.interface'
+
 @Injectable({
 	providedIn: 'root'
 })
